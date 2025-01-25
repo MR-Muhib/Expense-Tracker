@@ -1,9 +1,11 @@
+import TrackerForm from "./components/form/TrackerForm";
 
 export default function Home() {
   return (
-    
-   <>
-   <div className="text-center">Home page rendering</div>
-   </>
+    <>
+      <div className="">
+        <TrackerForm />
+      </div>
+    </>
   );
 }

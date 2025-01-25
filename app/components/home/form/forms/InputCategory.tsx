@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 
-const InputCategory: React.FC = () => {
+const InputCategory: React.FC = ({ onHandleInputChange }) => {
   return (
     <div className="my-5">
       <label htmlFor="category" className="text-xl mb-4 font-semibold">
@@ -10,6 +12,8 @@ const InputCategory: React.FC = () => {
         id="category"
         className=" w-full py-2 mt-2 text-lg"
         defaultValue=""
+        name="category"
+        onChange={onHandleInputChange}
       >
         <option value="" disabled className="text-gray-300">
           Select an option

@@ -19,7 +19,7 @@ const TrackerForm: React.FC = () => {
 
         <Button />
 
-        <InputCategory onHandleInputChange={handleInputChange} />
+        <InputCategory />
 
         {/* Amount */}
         <div className="">

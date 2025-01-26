@@ -1,8 +1,10 @@
 "use client";
 
+// import { useFormData } from "@/app/contexts/FormContext";
 import React from "react";
 
-const InputCategory: React.FC = ({ onHandleInputChange }) => {
+const InputCategory: React.FC = () => {
+  // const { handleInputChange } = useFormData();
   return (
     <div className="my-5">
       <label htmlFor="category" className="text-xl mb-4 font-semibold">
@@ -13,7 +15,6 @@ const InputCategory: React.FC = ({ onHandleInputChange }) => {
         className=" w-full py-2 mt-2 text-lg"
         defaultValue=""
         name="category"
-        onChange={onHandleInputChange}
       >
         <option value="" disabled className="text-gray-300">
           Select an option

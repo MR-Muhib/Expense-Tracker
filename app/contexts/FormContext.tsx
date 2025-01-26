@@ -1,42 +1,60 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  FormEvent,
+} from "react";
 
-// Create a Context
-const UserContext = createContext(null);
+// Define the type for form data
+interface FormData {
+  category: string;
+  amount: string;
+  date: string;
+}
+
+// Define the context type
+interface FormContextType {
+  data: FormData;
+  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: FormEvent) => void;
+}
+
+// Create a Context with default value as `null` (it will be provided later)
+const UserContext = createContext<FormContextType | null>(null);
 
 // Custom Hook
 export const useFormData = () => {
-  return useContext(UserContext);
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useFormData must be used within a FormProvider");
+  }
+  return context;
 };
 
+// Define props type for the FormProvider component
+interface FormProviderProps {
+  children: ReactNode;
+}
+
 // Form Provider Component
-export const FormProvider = ({ children }) => {
-  const [data, setData] = useState({
+export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
+  const [data, setData] = useState<FormData>({
     category: "",
     amount: "",
     date: "",
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    // Get data from localStorage safely
-    const initialData = localStorage.getItem("expense");
-    const fetchedData: ExpenseType[] = initialData
-      ? JSON.parse(initialData)
-      : [];
-
-    // Assuming `data` is of type ExpenseType
-    fetchedData.push(data);
-
-    // Save updated data to localStorage
-    localStorage.setItem("expense", JSON.stringify(fetchedData));
-
+    console.log("Form submitted", data);
     // Reset form
     setData({ category: "", amount: "", date: "" });
   };

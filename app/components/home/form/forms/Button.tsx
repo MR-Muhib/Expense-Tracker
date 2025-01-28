@@ -7,7 +7,9 @@ const Button = () => {
     expense: true,
     income: false,
   });
+
   const handleClick = (type: string) => {
+    // event?.preventDefault();
     if (type === "expense") {
       setIsActive({ expense: true, income: false });
     }

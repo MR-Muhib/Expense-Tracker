@@ -1,34 +1,45 @@
 "use client";
 
-// import { useFormData } from "@/app/contexts/FormContext";
 import React from "react";
 
-const InputCategory: React.FC = () => {
-  // const { handleInputChange } = useFormData();
+interface InputChange {
+  onHandleInputChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const categories = [
+  { id: 1, value: "food", title: "Food & Groceries" },
+  { id: 2, value: "health", title: "Health & Medical" },
+  { id: 3, value: "education", title: "Education" },
+  { id: 4, value: "transportation", title: "Transportation" },
+  { id: 5, value: "entertainment", title: "Entertainment" },
+  { id: 6, value: "shopping", title: "Shopping" },
+  { id: 7, value: "savings", title: "Savings & Investments" },
+  { id: 8, value: "bills", title: "Bills & Utilities" },
+  { id: 9, value: "travel", title: "Travel & Vacations" },
+  { id: 10, value: "other", title: "Other" },
+];
+
+const InputCategory: React.FC<InputChange> = ({ onHandleInputChange }) => {
   return (
     <div className="my-5">
-      <label htmlFor="category" className="text-xl mb-4 font-semibold">
+      <label htmlFor="category" className="text-xl  font-semibold ">
         Category
       </label>
       <select
         id="category"
-        className=" w-full py-2 mt-2 text-lg"
+        className=" text-lg mt-3 appearance-none block w-full bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-300"
         defaultValue=""
         name="category"
+        onChange={onHandleInputChange}
       >
         <option value="" disabled className="text-gray-300">
           Select an option
         </option>
-        <option value="food">Food & Groceries</option>
-        <option value="health">Health & Medical</option>
-        <option value="education">Education</option>
-        <option value="transportation">Transportation</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="shopping">Shopping</option>
-        <option value="savings">Savings & Investments</option>
-        <option value="bills">Bills & Utilities</option>
-        <option value="travel">Travel & Vacations</option>
-        <option value="other">Other</option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.value}>
+            {category.title}
+          </option>
+        ))}
       </select>
     </div>
   );

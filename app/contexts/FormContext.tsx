@@ -12,14 +12,16 @@ import {
 // Define the type for form data
 interface FormData {
   category: string;
-  amount: string;
+  amount: number;
   date: string;
 }
 
 // Define the context type
 interface FormContextType {
   data: FormData;
-  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (
+    event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+  ) => void;
   handleSubmit: (event: FormEvent) => void;
 }
 
@@ -44,11 +46,13 @@ interface FormProviderProps {
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [data, setData] = useState<FormData>({
     category: "",
-    amount: "",
+    amount: 0,
     date: "",
   });
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+  ) => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
@@ -56,7 +60,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     event.preventDefault();
     console.log("Form submitted", data);
     // Reset form
-    setData({ category: "", amount: "", date: "" });
+    setData({ category: "", amount: 0, date: "" });
   };
 
   return (

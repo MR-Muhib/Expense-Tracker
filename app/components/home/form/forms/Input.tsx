@@ -1,12 +1,15 @@
+import { useFormData } from "@/app/contexts/FormContext";
 import React from "react";
 
 interface InputProps {
   title: string;
   type: string;
   handler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
 }
 
-const Input: React.FC<InputProps> = ({ title, type, handler }) => {
+const Input: React.FC<InputProps> = ({ title, type, handler, value }) => {
+  const { error } = useFormData();
   return (
     <div className="mb-5">
       <label htmlFor={type} className="block text-xl my-2 font-medium mb-2">
@@ -17,8 +20,10 @@ const Input: React.FC<InputProps> = ({ title, type, handler }) => {
         type={type}
         name={type}
         id={type}
+        value={value}
         onChange={handler}
       />
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

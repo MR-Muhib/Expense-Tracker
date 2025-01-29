@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  ChangeEvent,
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  FormEvent,
-} from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the type for form data
 interface FormData {
@@ -17,12 +10,22 @@ interface FormData {
 }
 
 // Define the context type
+/* interface FormContextType {
+  data: FormData;
+  setData: (data: FormData) => void;
+
+  setActive: (isActive: boolean) => void;
+  setButtonType: (buttonType: string) => void;
+} */
 interface FormContextType {
   data: FormData;
-  handleInputChange: (
-    event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
-  ) => void;
-  handleSubmit: (event: FormEvent) => void;
+  setData: (data: FormData) => void;
+  isActive: { expense: boolean; income: boolean };
+  setIsActive: (isActive: { expense: boolean; income: boolean }) => void;
+  buttonType: string;
+  setButtonType: (buttonType: string) => void;
+  error: string | null;
+  setError: (error: string | null) => void;
 }
 
 // Create a Context with default value as `null` (it will be provided later)
@@ -50,21 +53,29 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     date: "",
   });
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
-  ) => {
-    setData({ ...data, [event.target.name]: event.target.value });
-  };
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    console.log("Form submitted", data);
-    // Reset form
-    setData({ category: "", amount: 0, date: "" });
-  };
+
+  const [isActive, setIsActive] = useState({
+    expense: true,
+    income: false,
+  });
+
+  const [buttonType, setButtonType] = useState("expense");
+  const [error, setError] = useState(null);
 
   return (
-    <UserContext.Provider value={{ data, handleInputChange, handleSubmit }}>
+    <UserContext.Provider
+      value={{
+        data,
+        setData,
+        isActive,
+        setIsActive,
+        buttonType,
+        setButtonType,
+        error,
+        setError,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

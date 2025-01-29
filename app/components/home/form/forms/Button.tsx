@@ -1,23 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-
-const Button = () => {
-  const [isActive, setIsActive] = useState({
-    expense: true,
-    income: false,
-  });
-
-  const handleClick = (type: string) => {
-    // event?.preventDefault();
-    if (type === "expense") {
-      setIsActive({ expense: true, income: false });
-    }
-    if (type === "income") {
-      setIsActive({ expense: false, income: true });
-    }
-  };
-
+const Button = ({ onButtonHandler, isActive }) => {
   return (
     <div className="flex ">
       <button
@@ -26,7 +9,7 @@ const Button = () => {
             ? "bg-green-primary hover:bg-green-dark w-full py-2 rounded-md text-white"
             : "bg-transparent w-full py-2 rounded-md text-black border border-gray-200"
         }`}
-        onClick={() => handleClick("expense")}
+        onClick={() => onButtonHandler("expense")}
       >
         Expense
       </button>
@@ -36,7 +19,7 @@ const Button = () => {
             ? "bg-green-primary hover:bg-green-dark w-full py-2 rounded-md text-white"
             : "bg-transparent w-full py-2 rounded-md text-black border border-gray-200"
         }`}
-        onClick={() => handleClick("income")}
+        onClick={() => onButtonHandler("income")}
       >
         Income
       </button>

@@ -2,9 +2,9 @@ import React from "react";
 import Income from "../income/Income";
 import Expense from "../expense/Expense";
 
-const IncomeExpense = () => {
+const IncomeExpense: React.FC = () => {
   return (
-    <div className="flex justify-between ml-2">
+    <div className="grid grid-cols-2  mt-6 gap-5">
       <Income />
 
       <Expense />

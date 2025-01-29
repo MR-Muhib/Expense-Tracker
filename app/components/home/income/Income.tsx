@@ -1,21 +1,34 @@
-import React from "react";
+"use client";
 
-const InitialIncome = [
-  { id: 1, category: "salary", date: "05/07/2032", amount: 5000 },
-  { id: 2, category: "rent", date: "01/02/2022", amount: 3000 },
-];
+import React, { useEffect, useState } from "react";
 
-const Income = () => {
+interface IncomeItems {
+  category: string;
+  date: string;
+  amount: number;
+}
+
+const Income: React.FC = () => {
+  const [InitialIncome, setInitialIncome] = useState<IncomeItems[]>([]);
+  useEffect(() => {
+    const data = JSON.parse(
+      localStorage?.getItem("incomes") || "[]"
+    ) as IncomeItems[];
+    setInitialIncome(data);
+
+    setInitialIncome(data);
+  }, []);
+
   return (
-    <div className="w-full h-80 overflow-auto bg-gray-light p-2 border border-gray-200 mr-2 rounded-md">
-      <div className="mb-2">
-        <h1 className="text-xl font-semibold">Income</h1>
+    <div className="w-full h-[27rem] overflow-auto scrollbar-hide bg-gray-light  border border-gray-200  rounded-md">
+      <div className="mb-2 bg-gray-light sticky top-0 w-full z-10">
+        <h1 className="text-xl font-semibold p-4">Income</h1>
       </div>
 
       <div className="">
-        {InitialIncome.map((income) => (
-          <>
-            <div key={income.id} className="flex justify-between mb-2">
+        {InitialIncome.map((income, index) => (
+          <div key={index}>
+            <div className="flex justify-between mb-2 p-4">
               <div className="">
                 <p className="text-lg font-semibold capitalize">
                   {income.category}
@@ -29,7 +42,7 @@ const Income = () => {
               </div>
             </div>
             <hr></hr>
-          </>
+          </div>
         ))}
       </div>
     </div>

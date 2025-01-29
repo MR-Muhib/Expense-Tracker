@@ -65,7 +65,6 @@ const TrackerForm: React.FC = () => {
 
     setError(null);
   };
-  // console.log(buttonType);
 
   return (
     <div className="">

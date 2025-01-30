@@ -15,12 +15,11 @@ const Expense: React.FC = () => {
   const [InitialExpense, setInitialExpense] = useState<ExpenseItem[]>([]); // Add correct type
 
   useEffect(() => {
-    const data = JSON.parse(
-      localStorage?.getItem("expense") || "[]"
-    ) as ExpenseItem[];
-    setInitialExpense(data);
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("expense");
+      setInitialExpense(storedData ? JSON.parse(storedData) : []);
+    }
   }, []);
-
   // console.log(InitialExpense);
 
   return (

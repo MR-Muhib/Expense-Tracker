@@ -11,12 +11,10 @@ interface IncomeItems {
 const Income: React.FC = () => {
   const [InitialIncome, setInitialIncome] = useState<IncomeItems[]>([]);
   useEffect(() => {
-    const data = JSON.parse(
-      localStorage?.getItem("incomes") || "[]"
-    ) as IncomeItems[];
-    setInitialIncome(data);
-
-    setInitialIncome(data);
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("incomes");
+      setInitialIncome(storedData ? JSON.parse(storedData) : []);
+    }
   }, []);
 
   return (

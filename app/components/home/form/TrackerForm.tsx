@@ -59,7 +59,7 @@ const TrackerForm: React.FC = () => {
     // Reset form data properly
     setData({
       category: "",
-      amount: 0,
+      amount: 1,
       date: "",
     });
 

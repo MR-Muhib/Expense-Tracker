@@ -53,15 +53,13 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     date: "",
   });
 
-
-
   const [isActive, setIsActive] = useState({
     expense: true,
     income: false,
   });
 
   const [buttonType, setButtonType] = useState("expense");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <UserContext.Provider
